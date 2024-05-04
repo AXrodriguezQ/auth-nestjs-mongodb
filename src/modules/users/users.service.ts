@@ -31,18 +31,18 @@ export class UsersService {
 
   }
 
-  findOneUser(id: number): Promise<User[]> {
+  findOneUser(id: string): Promise<User[]> {
     return this.userModel.findById(id);
   }
 
-  async updateUser(id: number, updateUserDto: UpdateUserDto): Promise<User> {
+  async updateUser(id: string, updateUserDto: UpdateUserDto): Promise<User> {
     const updatedUser = await this.userModel.findByIdAndUpdate(id, updateUserDto, { new: true }).exec();
     if (!updatedUser) throw new NotFoundException(`User with id ${id} not found`)
 
     return updatedUser;
   }
 
-  async removeUser(id: number): Promise<void> {
+  async removeUser(id: string): Promise<void> {
     const user = await this.userModel.findByIdAndDelete(id).exec();
     if (!user) throw new NotFoundException(`User with id ${id} not found`)
   }
